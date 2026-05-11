@@ -1,0 +1,54 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // Global Deny
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // Helpers
+    function isSignedIn() {
+      return request.auth != null;
+    }
+    
+    function isValidId(id) {
+      return id is string && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+
+    // Turmas
+    match /turmas/{turmaId} {
+      allow read, write: if isSignedIn();
+    }
+
+    // Alunos
+    match /alunos/{alunoId} {
+      allow read, write: if isSignedIn();
+    }
+
+    // Frequencias
+    match /frequencias/{frequenciaId} {
+      allow read, write: if isSignedIn();
+    }
+
+    // Planos Aula
+    match /planosAula/{planoId} {
+      allow read, write: if isSignedIn();
+    }
+
+    // Provas
+    match /provas/{provaId} {
+      allow read, write: if isSignedIn();
+    }
+
+    // Exercicios
+    match /exercicios/{exercicioId} {
+      allow read, write: if isSignedIn();
+    }
+
+    // Usage tracking
+    match /usage/{userId} {
+      allow read, write: if isSignedIn() && request.auth.uid == userId;
+    }
+  }
+}

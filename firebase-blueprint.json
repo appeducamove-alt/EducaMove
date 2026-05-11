@@ -1,0 +1,139 @@
+{
+  "entities": {
+    "Turma": {
+      "title": "Turma",
+      "description": "Uma turma de alunos.",
+      "type": "object",
+      "properties": {
+        "nome": { "type": "string" },
+        "serie": { "type": "string" },
+        "turno": { "type": "string" },
+        "observacoes": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["nome", "serie", "turno"]
+    },
+    "Aluno": {
+      "title": "Aluno",
+      "description": "Um aluno matriculado em uma turma.",
+      "type": "object",
+      "properties": {
+        "nome": { "type": "string" },
+        "idade": { "type": "integer" },
+        "turmaId": { "type": "string" },
+        "observacoes": { "type": "string" },
+        "restricoesFisicas": { "type": "string" },
+        "responsavel": { "type": "string" },
+        "telefone": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["nome", "turmaId"]
+    },
+    "Frequencia": {
+      "title": "Frequencia",
+      "description": "Registro de presença diário de uma turma.",
+      "type": "object",
+      "properties": {
+        "data": { "type": "string", "format": "date-time" },
+        "turmaId": { "type": "string" },
+        "presencas": { "type": "object" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["data", "turmaId", "presencas"]
+    },
+    "PlanoAula": {
+      "title": "Plano de Aula",
+      "description": "Plano de aula gerado por IA para uma turma.",
+      "type": "object",
+      "properties": {
+        "serie": { "type": "string" },
+        "tema": { "type": "string" },
+        "duracao": { "type": "string" },
+        "quantidadeAlunos": { "type": "integer" },
+        "materiais": { "type": "string" },
+        "objetivo": { "type": "string" },
+        "conteudo": { "type": "object" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["serie", "tema", "conteudo"]
+    },
+    "Prova": {
+      "title": "Prova",
+      "description": "Prova gerada por IA.",
+      "type": "object",
+      "properties": {
+        "serie": { "type": "string" },
+        "tema": { "type": "string" },
+        "dificuldade": { "type": "string" },
+        "quantidadeQuestoes": { "type": "integer" },
+        "tipo": { "type": "string" },
+        "questoes": { "type": "array" },
+        "gabarito": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["serie", "tema", "questoes"]
+    },
+    "Exercicio": {
+      "title": "Exercicio",
+      "description": "Exercício ou atividade física do banco inteligente.",
+      "type": "object",
+      "properties": {
+        "titulo": { "type": "string" },
+        "idade": { "type": "string" },
+        "serie": { "type": "string" },
+        "objetivo": { "type": "string" },
+        "espaco": { "type": "string" },
+        "material": { "type": "string" },
+        "descricao": { "type": "string" },
+        "execucao": { "type": "string" },
+        "materiaisList": { "type": "string" },
+        "objetivoPedagogico": { "type": "string" },
+        "favorito": { "type": "boolean" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["titulo", "descricao"]
+    },
+    "Usage": {
+      "title": "Uso de IA",
+      "description": "Controle de uso diário e mensal da IA.",
+      "type": "object",
+      "properties": {
+        "dailyUsage": { "type": "object" },
+        "monthlyUsage": { "type": "object" },
+        "lastUsed": { "type": "string", "format": "date-time" }
+      }
+    }
+  },
+  "firestore": {
+    "/turmas/{turmaId}": {
+      "schema": "Turma",
+      "description": "Coleção de turmas."
+    },
+    "/alunos/{alunoId}": {
+      "schema": "Aluno",
+      "description": "Coleção de alunos."
+    },
+    "/frequencias/{frequenciaId}": {
+      "schema": "Frequencia",
+      "description": "Coleção de registros de frequência."
+    },
+    "/planosAula/{planoId}": {
+      "schema": "PlanoAula",
+      "description": "Coleção de planos de aula."
+    },
+    "/provas/{provaId}": {
+      "schema": "Prova",
+      "description": "Coleção de provas geradas."
+    },
+    "/exercicios/{exercicioId}": {
+      "schema": "Exercicio",
+      "description": "Coleção de exercícios."
+    },
+    "/usage/{userId}": {
+      "schema": "Usage",
+      "description": "Uso de IA por usuário."
+    }
+  }
+}
