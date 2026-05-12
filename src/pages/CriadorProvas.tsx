@@ -78,9 +78,13 @@ const CriadorProvas = () => {
       setGeneratedExam(exam);
       await incrementIAUsage();
       fetchUsage();
-    } catch (err) {
+    } catch (err: any) {
       console.error(err);
-      alert('Erro ao gerar prova.');
+      if (err.message === "AI_KEY_MISSING") {
+        alert('Configuração incompleta: API Key da Gemini não encontrada. Por favor, configure a variável de ambiente VITE_GEMINI_API_KEY.');
+      } else {
+        alert('Erro ao gerar prova.');
+      }
     } finally {
       setLoading(false);
     }

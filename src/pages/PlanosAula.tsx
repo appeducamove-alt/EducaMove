@@ -81,9 +81,13 @@ const PlanosAula = () => {
       setGeneratedPlan(plan);
       await incrementIAUsage();
       fetchUsage();
-    } catch (err) {
+    } catch (err: any) {
       console.error("Erro IA:", err);
-      alert('Erro ao gerar plano de aula.');
+      if (err.message === "AI_KEY_MISSING") {
+        alert('Configuração incompleta: API Key da Gemini não encontrada. Por favor, configure a variável de ambiente VITE_GEMINI_API_KEY.');
+      } else {
+        alert('Erro ao gerar plano de aula.');
+      }
     } finally {
       setLoading(false);
     }

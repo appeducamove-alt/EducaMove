@@ -84,9 +84,13 @@ const BibliotecaExercicios = () => {
       fetchItems();
       setViewingEx({ id: docRef.id, ...newEx });
       setShowGenModal(false);
-    } catch (err) {
+    } catch (err: any) {
       console.error(err);
-      alert('Erro ao gerar exercício.');
+      if (err.message === "AI_KEY_MISSING") {
+        alert('Configuração incompleta: API Key da Gemini não encontrada. Por favor, configure a variável de ambiente VITE_GEMINI_API_KEY.');
+      } else {
+        alert('Erro ao gerar exercício.');
+      }
     } finally {
       setIsGenerating(false);
     }
